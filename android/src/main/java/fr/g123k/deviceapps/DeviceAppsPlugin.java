@@ -268,8 +268,12 @@ public class DeviceAppsPlugin implements
         if (includeAppIcon) {
             try {
                 Drawable icon = packageManager.getApplicationIcon(pInfo.packageName);
-                String encodedImage = encodeToBase64(getBitmapFromDrawable(icon), Bitmap.CompressFormat.PNG, 100);
-                map.put(AppDataConstants.APP_ICON, encodedImage);
+                Bitmap bitmap = getBitmapFromDrawable(icon);
+                if (bitmap != null) {
+                    Bitmap scaledBitmap = Bitmap.createScaledBitmap(bitmap, 100, 100, true);
+                    String encodedImage = encodeToBase64(scaledBitmap, Bitmap.CompressFormat.PNG, 100);
+                    map.put(AppDataConstants.APP_ICON, encodedImage);
+                }
             } catch (PackageManager.NameNotFoundException ignored) {
             }
         }

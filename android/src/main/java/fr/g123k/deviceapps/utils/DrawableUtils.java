@@ -7,6 +7,10 @@ import android.graphics.drawable.Drawable;
 public class DrawableUtils {
 
     public static Bitmap getBitmapFromDrawable(Drawable drawable) {
+        if (drawable.getIntrinsicWidth() <= 0 || drawable.getIntrinsicHeight() <= 0) {
+            return null;
+        }
+
         final Bitmap bmp = Bitmap.createBitmap(
                 drawable.getIntrinsicWidth(),
                 drawable.getIntrinsicHeight(),
